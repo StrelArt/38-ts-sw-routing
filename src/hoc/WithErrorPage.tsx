@@ -26,8 +26,8 @@ export const WithErrorPage = <P extends object>(WrappedComponent: ComponentType<
         }
 
         return (
-                            <WrappedComponent {...props} heroId={heroId}/>
-                    );
+            <WrappedComponent {...props} heroId={heroId}/>
+        );
     };
 
     return EnhancedComponent;
