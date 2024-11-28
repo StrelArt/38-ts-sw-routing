@@ -4,7 +4,7 @@ import {HeroInfo} from "../utils/types";
 import {WithErrorPage} from "../hoc/WithErrorPage.tsx";
 
 interface AboutMeProps {
-    heroId: string;
+    heroId?: string;
 }
 
 const AboutMe = ({heroId}:AboutMeProps) => {
@@ -19,11 +19,11 @@ const AboutMe = ({heroId}:AboutMeProps) => {
         // }
         // changeHero(heroId);
 
-        const hero = JSON.parse(localStorage.getItem(heroId)!);
+        const hero = JSON.parse(localStorage.getItem(heroId!)!);
         if (hero && ((Date.now() - hero.timestamp) < period_month)) {
             setHero(hero.payload);
         } else {
-            fetch(characters[heroId].url)
+            fetch(characters[heroId!].url)
                 .then(response => response.json())
                 .then(data => {
                     const info = {
@@ -38,7 +38,7 @@ const AboutMe = ({heroId}:AboutMeProps) => {
 
                     }
                     setHero(info);
-                    localStorage.setItem(heroId, JSON.stringify({
+                    localStorage.setItem(heroId!, JSON.stringify({
                         payload: info,
                         timestamp: Date.now()
                     }));
