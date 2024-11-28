@@ -1,17 +1,16 @@
-import React, {useEffect, useState} from "react";
-import {characters, defaultHero, period_month} from "../utils/constants.ts";
+import {useEffect, useState} from "react";
+import {characters, period_month} from "../utils/constants.ts";
 import {HeroInfo} from "../utils/types";
-import {useParams} from "react-router-dom";
 import {WithErrorPage} from "../hoc/WithErrorPage.tsx";
 
 interface AboutMeProps {
-    heroId?: string;
+    heroId: string;
 }
 
-const AboutMe: React.FC<AboutMeProps> = () => {
+const AboutMe = ({heroId}:AboutMeProps) => {
     const [hero, setHero] = useState<HeroInfo>();
 
-    const {heroId = defaultHero} = useParams();
+    // const {heroId = defaultHero} = useParams();
     // const {changeHero} = useContext(SWContext);
 
     useEffect(() => {
