@@ -5,24 +5,21 @@ import {SWContext} from "../utils/context.ts";
 import ErrorPage from "../components/ErrorPage.tsx";
 
 
+export const WithErrorPage = <T extends object>(WrappedComponent: ComponentType<T>) => (props: T) => {
 
-export const WithErrorPage = <T extends object>(WrappedComponent: ComponentType<T>) => (props:T) => {
+    const {heroId = defaultHero} = useParams<{ heroId: string }>();
+    const {changeHero} = useContext(SWContext);
 
-        const {heroId = defaultHero} = useParams<{ heroId: string }>();
-        const {changeHero} = useContext(SWContext);
+    useEffect(() => {
+        changeHero(heroId);
+    }, [heroId]);
 
-        useEffect(() => {
-            if (characters[heroId]) {
-                changeHero(heroId);
-            }
-        }, [heroId]);
+    if (!characters[heroId]) {
+        return <ErrorPage/>;
+    }
 
-        if (!characters[heroId]) {
-            return <ErrorPage/>;
-        }
-
-        return (
-            <WrappedComponent {...props} heroId={heroId}/>
-        );
-    };
+    return (
+        <WrappedComponent {...props} heroId={heroId}/>
+    );
+};
 
